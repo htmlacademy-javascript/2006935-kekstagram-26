@@ -3,37 +3,6 @@ import {makeElement} from './util.js';
 const picture = document.querySelector('.big-picture');
 const image = picture.querySelector('.big-picture__img');
 
-
-// Открыть со всеми вытекающими
-const socialCommentCount = picture.querySelector('.social__comment-count');
-const commentsLoader = picture.querySelector('.comments-loader');
-
-function openPicture (pictureSource, pictureLikesCount, pictureCommentsCount, pictureDescription) {
-  picture.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
-  document.body.classList.add('modal-open');
-  image.querySelector('img').src = pictureSource;
-  picture.querySelector('.likes-count').textContent = pictureLikesCount;
-  picture.querySelector('.comments-count').textContent = pictureCommentsCount;
-  picture.querySelector('.social__caption').textContent = pictureDescription;
-}
-
-// Закрыть
-
-const pictureClose = picture.querySelector('.big-picture__cancel');
-
-pictureClose.addEventListener('click', () => {
-  picture.classList.add('hidden');
-
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.keyCode === 27) {
-    picture.classList.add('hidden');
-  }
-});
-
 function addCommentItem (avatarSource, authorName, text) {
   const listItem = makeElement('li', 'social__comment');
   const authorAvatar = makeElement('img', 'social__picture');
@@ -69,5 +38,36 @@ function addComments (commentsObject) {
   });
 }
 
+// Открыть со всеми вытекающими
+
+const socialCommentCount = picture.querySelector('.social__comment-count');
+const commentsLoader = picture.querySelector('.comments-loader');
+
+function openPicture (pictureSource, pictureLikesCount, pictureComments, pictureDescription) {
+  picture.classList.remove('hidden');
+  socialCommentCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
+  document.body.classList.add('modal-open');
+  image.querySelector('img').src = pictureSource;
+  picture.querySelector('.likes-count').textContent = pictureLikesCount;
+  picture.querySelector('.comments-count').textContent = pictureComments;
+  picture.querySelector('.social__caption').textContent = pictureDescription;
+  addComments(pictureComments);
+}
+
+// Закрыть
+
+const pictureClose = picture.querySelector('.big-picture__cancel');
+
+pictureClose.addEventListener('click', () => {
+  picture.classList.add('hidden');
+
+});
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.keyCode === 27) {
+    picture.classList.add('hidden');
+  }
+});
+
 export {openPicture};
-export {addComments};

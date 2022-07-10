@@ -1,6 +1,5 @@
 import {generateDescriptionsList} from './data.js';
 import {openPicture} from './draw-big-picture.js';
-import {addComments} from './draw-big-picture.js';
 
 const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
@@ -21,7 +20,7 @@ pictureThumbnails.forEach(({url, likes, comments, description}) => {
   //Затем по клику на элемент открываем большую картинку
   pictureThumbnail.addEventListener('click', () => {
     openPicture(url, likes, comments, description);
-    addComments(comments);
+    // addComments(comments);
   });
 
   drawThumbnails.appendChild(pictureThumbnail);
