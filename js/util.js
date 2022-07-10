@@ -14,6 +14,14 @@ function getRandomArrayElement(elements) {
   return elements[getRandomNumber(0, elements.length-1)];
 }
 
+function makeElement (tagName, className, text) {
+  const element = document.createElement(tagName);
+  element.classList.add(className);
+  if (text) {
+    element.textContent = text;
+  }
+  return element;
+}
 
 // Функция для проверки максимальной длины строки
 
@@ -23,3 +31,4 @@ function getRandomArrayElement(elements) {
 
 export {getRandomNumber};
 export {getRandomArrayElement};
+export {makeElement};

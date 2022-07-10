@@ -5,4 +5,4 @@
 
 
 import './draw-thumbnail.js';
-import './draw-big-picture.js';
+// import './draw-big-picture.js';
