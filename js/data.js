@@ -112,7 +112,7 @@ function createPhotoDescription () {
     url: '',
     description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
     likes: getRandomNumber(15, 200),
-    comments: generateCommentsList(10, 100),
+    comments: generateCommentsList(getRandomNumber(1, 10), 100),
   };
 }
 
@@ -128,5 +128,4 @@ function generateDescriptionsList (descriptionsQuantity) {
   }
   return descriptionsList;
 }
-
 export {generateDescriptionsList};
