@@ -30,8 +30,8 @@ uploadFile.addEventListener('change', () => {
   });
 });
 
-const ae = document.activeElement
-  console.log(ae);
+// const ae = document.activeElement;
+// console.log(ae);
 
 
 const pristine = new Pristine(imgUploadForm, {
