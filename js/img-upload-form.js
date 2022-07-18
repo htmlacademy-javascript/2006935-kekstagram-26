@@ -1,5 +1,3 @@
-// import {checkMaxLength} from './util.js';
-
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadFile = uploadForm.querySelector('#upload-file');
 const imageEditForm = uploadForm.querySelector('.img-upload__overlay');
@@ -14,9 +12,16 @@ const commentElement = uploadForm.querySelector('.text__description');
 uploadFile.addEventListener('change', () => {
   imageEditForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
-
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
+      /*
+      Так работает, но в консоли ошибка:
+      Uncaught TypeError: evt.key.stopPropagation is not a function
+    at HTMLDocument.
+      */
+      if (document.activeElement === hashtagsElement || document.activeElement === commentElement){
+        evt.key.stopPropagation();
+      }
       imageEditForm.classList.add('hidden');
       document.body.classList.remove('modal-open');
       uploadForm.reset();
@@ -30,9 +35,6 @@ uploadFile.addEventListener('change', () => {
   });
 });
 
-// const ae = document.activeElement;
-// console.log(ae);
-
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -44,10 +46,6 @@ const pristine = new Pristine(imgUploadForm, {
 });
 
 // Валидируем хештэги
-
-
-// если фокус находится в поле ввода хэш-тега, нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
-
 
 // хэш-теги нечувствительны к регистру: #ХэшТег и #хэштег считаются одним и тем же тегом;
 // один и тот же хэш-тег не может быть использован дважды;
@@ -83,6 +81,9 @@ function isHashtagsValid (value) {
   for (let i = 0; hashtagsArray.length > i; i++) {
     booleanCountArray.push(re.test(hashtagsArray[i]));
   }
+  if (value.length === 0) {
+    return true;
+  }
   return !booleanCountArray.includes(false);
 }
 pristine.addValidator(hashtagsElement,
@@ -104,8 +105,7 @@ function validateLengthMessage (value) {
 pristine.addValidator(commentElement, validateLengthMessage, 'Длина комментария не может быть больше 140 символов');
 
 imgUploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if (!pristine.validate()){
+    evt.preventDefault();
+  }
 });
-
-// если фокус находится в поле ввода комментария, нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
