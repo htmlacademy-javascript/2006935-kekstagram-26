@@ -91,8 +91,9 @@ pristine.addValidator(hashtagsElement,
   'хэш-тег: должен начинаться с #, не может содержать пробел, спецсимволы, символы пунктуации и т. д., не может состоять только из #, максимальная длина 20 символов');
 
 // нельзя указать больше пяти хэш-тегов;
+const hashtagsQuantity = 5;
 function checkHashtagsAmount (value) {
-  return value.split(' ').length <= 5;
+  return value.split(' ').length <= hashtagsQuantity;
 }
 pristine.addValidator(hashtagsElement, checkHashtagsAmount, 'Нельзя указать больше пяти хэш-тегов');
 
