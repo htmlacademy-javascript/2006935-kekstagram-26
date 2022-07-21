@@ -2,6 +2,7 @@ import {makeElement} from './util.js';
 
 const picture = document.querySelector('.big-picture');
 const image = picture.querySelector('.big-picture__img');
+const commentsLoader = picture.querySelector('.comments-loader');
 
 function addCommentItem (avatarSource, authorName, text) {
   const listItem = makeElement('li', 'social__comment');
@@ -41,19 +42,30 @@ function addComments (commentsObject) {
 function drawPicture (pictureSource, pictureLikesCount, pictureComments, pictureDescription) {
   image.querySelector('img').src = pictureSource;
   picture.querySelector('.likes-count').textContent = pictureLikesCount;
-  picture.querySelector('.comments-count').textContent = pictureComments;
+  // picture.querySelector('.comments-count').textContent = pictureComments;
   picture.querySelector('.social__caption').textContent = pictureDescription;
-  addComments(pictureComments);
+  // addComments(pictureComments);
+  if (pictureComments.length <= 5) {
+    commentsLoader.classList.add('hidden');
+    addComments(pictureComments);
+  } else {
+    commentsLoader.classList.remove('hidden');
+    addComments(pictureComments.slice(0, 3));
+    let loadCount = 1;
+    commentsLoader.addEventListener('click', () => {
+      loadCount++;
+      addComments(pictureComments.slice(0, 3 * loadCount));
+    });
+  }
 }
 
 // Открыть со всеми вытекающими
-const socialCommentCount = picture.querySelector('.social__comment-count');
-const commentsLoader = picture.querySelector('.comments-loader');
+// const socialCommentCount = picture.querySelector('.social__comment-count');
 
 function openPicture () {
   picture.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  // socialCommentCount.classList.add('hidden');
+  // commentsLoader.classList.add('hidden');
   document.body.classList.add('modal-open');
 
   // Обработчик добавляется только при открытии окна

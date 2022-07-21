@@ -14,17 +14,13 @@ uploadFile.addEventListener('change', () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
-      /*
-      Так работает, но в консоли ошибка:
-      Uncaught TypeError: evt.key.stopPropagation is not a function
-    at HTMLDocument.
-      */
-      if (document.activeElement === hashtagsElement || document.activeElement === commentElement){
-        evt.key.stopPropagation();
+
+      if (document.activeElement !== hashtagsElement && document.activeElement !== commentElement){
+        imageEditForm.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+        uploadForm.reset();
       }
-      imageEditForm.classList.add('hidden');
-      document.body.classList.remove('modal-open');
-      uploadForm.reset();
+
     }
   });
 
