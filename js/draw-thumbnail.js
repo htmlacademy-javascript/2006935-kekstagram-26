@@ -20,9 +20,6 @@ pictureThumbnails.forEach(({url, likes, comments, description}) => {
   pictureThumbnail.addEventListener('click', () => {
     drawPicture(url, likes, comments, description);
     openPicture();
-    // console.log(comments);
-    // console.log(comments.slice(0, 5));
-
   });
 
 

@@ -42,12 +42,14 @@ function addComments (commentsObject) {
 function drawPicture (pictureSource, pictureLikesCount, pictureComments, pictureDescription) {
   image.querySelector('img').src = pictureSource;
   picture.querySelector('.likes-count').textContent = pictureLikesCount;
-  // picture.querySelector('.comments-count').textContent = pictureComments;
+  // const commentsCount = picture.querySelector('.comments-count').textContent = pictureComments.length;
   picture.querySelector('.social__caption').textContent = pictureDescription;
+  // const commentCount = document.querySelector('.social__comment-count');
 
   if (pictureComments.length <= 5) {
     commentsLoader.classList.add('hidden');
     addComments(pictureComments);
+    // commentCount.textContent = `${commentsCount} из ${commentsCount} комментариев`;
   } else {
     commentsLoader.classList.remove('hidden');
     addComments(pictureComments.slice(0, 5));
@@ -55,12 +57,14 @@ function drawPicture (pictureSource, pictureLikesCount, pictureComments, picture
     commentsLoader.addEventListener('click', () => {
       loadCount++;
       addComments(pictureComments.slice(0, 5 * loadCount));
-      console.log(pictureComments.slice(0, 5 * loadCount).length);
-      console.log(pictureComments.length);
+
+      if (pictureComments.length === pictureComments.slice(0, 5 * loadCount).length) {
+        commentsLoader.classList.add('hidden');
+      }
+      // commentCount.textContent = `${pictureComments.slice(0, 5 * loadCount).length} из ${commentsCount} комментариев`;
     });
   }
 }
-
 // Открыть со всеми вытекающими
 // const socialCommentCount = picture.querySelector('.social__comment-count');
 
