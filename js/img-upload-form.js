@@ -46,17 +46,17 @@ const pristine = new Pristine(imgUploadForm, {
 function isHashtagRepeat (value) {
   const hashtagsLower = value.toLowerCase();
   const hashtagsArray = hashtagsLower.split(' ');
-  const arr = [];
+  const booleanCountArray = [];
   // Проверяем элемент, начиная с первого с каждым последующим. Когда все последующие проверены, проверяем второй элемент со следующими за ним, так как с первым проверка уже была. И так далее.
   for (let currentIndex = 0; currentIndex < hashtagsArray.length - 1; currentIndex++){
     for (let comparableElementIndex = currentIndex + 1; comparableElementIndex < hashtagsArray.length; comparableElementIndex++) {
       if (hashtagsArray[currentIndex] === hashtagsArray[comparableElementIndex]) {
-        arr.push(true);
+        booleanCountArray.push(true);
       }
-      arr.push(false);
+      booleanCountArray.push(false);
     }
   }
-  return !arr.includes(true);
+  return !booleanCountArray.includes(true);
 }
 
 pristine.addValidator(hashtagsElement,
@@ -85,17 +85,17 @@ pristine.addValidator(hashtagsElement,
   'хэш-тег: должен начинаться с #, не может содержать пробел, спецсимволы, символы пунктуации и т. д., не может состоять только из #, максимальная длина 20 символов');
 
 // нельзя указать больше пяти хэш-тегов;
-const hashtagsQuantity = 5;
+const HASHTAGS_QUANTITY = 5;
 function checkHashtagsAmount (value) {
-  return value.split(' ').length <= hashtagsQuantity;
+  return value.split(' ').length <= HASHTAGS_QUANTITY;
 }
 pristine.addValidator(hashtagsElement, checkHashtagsAmount, 'Нельзя указать больше пяти хэш-тегов');
 
 
 // Валидируем комментарии
-
+const COMMENT_LENGTH = 140;
 function validateLengthMessage (value) {
-  return value.length <= 140;
+  return value.length <= COMMENT_LENGTH;
 }
 pristine.addValidator(commentElement, validateLengthMessage, 'Длина комментария не может быть больше 140 символов');
 
