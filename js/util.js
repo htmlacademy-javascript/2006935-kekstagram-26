@@ -25,10 +25,8 @@ function makeElement (tagName, className, text) {
 
 // Функция для проверки максимальной длины строки
 
-// function checkMaxLength(string, maxLength) {
-//   return string.length <= maxLength;
-// }
+function checkMaxLength(string, maxLength) {
+  return string.length <= maxLength;
+}
 
-export {getRandomNumber};
-export {getRandomArrayElement};
-export {makeElement};
+export {getRandomNumber, getRandomArrayElement, makeElement, checkMaxLength};

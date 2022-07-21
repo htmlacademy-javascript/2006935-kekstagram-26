@@ -38,16 +38,7 @@ function addComments (commentsObject) {
   });
 }
 
-// Открыть со всеми вытекающими
-
-const socialCommentCount = picture.querySelector('.social__comment-count');
-const commentsLoader = picture.querySelector('.comments-loader');
-
-function openPicture (pictureSource, pictureLikesCount, pictureComments, pictureDescription) {
-  picture.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
-  document.body.classList.add('modal-open');
+function drawPicture (pictureSource, pictureLikesCount, pictureComments, pictureDescription) {
   image.querySelector('img').src = pictureSource;
   picture.querySelector('.likes-count').textContent = pictureLikesCount;
   picture.querySelector('.comments-count').textContent = pictureComments;
@@ -55,19 +46,30 @@ function openPicture (pictureSource, pictureLikesCount, pictureComments, picture
   addComments(pictureComments);
 }
 
-// Закрыть
+// Открыть со всеми вытекающими
+const socialCommentCount = picture.querySelector('.social__comment-count');
+const commentsLoader = picture.querySelector('.comments-loader');
 
-const pictureClose = picture.querySelector('.big-picture__cancel');
+function openPicture () {
+  picture.classList.remove('hidden');
+  socialCommentCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
+  document.body.classList.add('modal-open');
 
-pictureClose.addEventListener('click', () => {
-  picture.classList.add('hidden');
+  // Обработчик добавляется только при открытии окна
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      picture.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+    }
+  });
 
-});
+  const pictureClose = picture.querySelector('.big-picture__cancel');
 
-document.addEventListener('keydown', (evt) => {
-  if (evt.keyCode === 27) {
+  pictureClose.addEventListener('click', () => {
     picture.classList.add('hidden');
-  }
-});
+    document.body.classList.remove('modal-open');
+  });
+}
 
-export {openPicture};
+export {openPicture, drawPicture};
