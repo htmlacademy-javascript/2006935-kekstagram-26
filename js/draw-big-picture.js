@@ -44,17 +44,19 @@ function drawPicture (pictureSource, pictureLikesCount, pictureComments, picture
   picture.querySelector('.likes-count').textContent = pictureLikesCount;
   // picture.querySelector('.comments-count').textContent = pictureComments;
   picture.querySelector('.social__caption').textContent = pictureDescription;
-  // addComments(pictureComments);
+
   if (pictureComments.length <= 5) {
     commentsLoader.classList.add('hidden');
     addComments(pictureComments);
   } else {
     commentsLoader.classList.remove('hidden');
-    addComments(pictureComments.slice(0, 3));
+    addComments(pictureComments.slice(0, 5));
     let loadCount = 1;
     commentsLoader.addEventListener('click', () => {
       loadCount++;
-      addComments(pictureComments.slice(0, 3 * loadCount));
+      addComments(pictureComments.slice(0, 5 * loadCount));
+      console.log(pictureComments.slice(0, 5 * loadCount).length);
+      console.log(pictureComments.length);
     });
   }
 }
