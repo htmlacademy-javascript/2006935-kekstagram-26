@@ -6,7 +6,7 @@ const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const pictureThumbnails = generateDescriptionsList(2);
+const pictureThumbnails = generateDescriptionsList(6);
 
 const drawThumbnails = document.createDocumentFragment();
 
@@ -16,12 +16,12 @@ pictureThumbnails.forEach(({url, likes, comments, description}) => {
   pictureThumbnail.querySelector('.picture__img').src = url;
   pictureThumbnail.querySelector('.picture__comments').textContent = comments.length;
   pictureThumbnail.querySelector('.picture__likes').textContent = likes;
-
   //Затем по клику на элемент открываем большую картинку
   pictureThumbnail.addEventListener('click', () => {
     drawPicture(url, likes, comments, description);
     openPicture();
   });
+
 
   drawThumbnails.appendChild(pictureThumbnail);
 });
